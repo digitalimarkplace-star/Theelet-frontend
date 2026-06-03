@@ -1,0 +1,69 @@
+/*  */
+
+@import "tailwindcss";
+/* ------------------------------
+   Google Fonts Import
+------------------------------ */
+* {
+  font-family: var(--font-belgiano);
+}
+
+
+/* ------------------------------
+   Theme Variables
+------------------------------ */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
+  --font-script: "Alex Brush", cursive;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #ffffff;
+    --foreground: #ededed;
+  }
+}
+
+/* ------------------------------
+   Base Body Styles
+------------------------------ */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-belgiano);
+}
+
+/* ------------------------------
+   Font Smoothing
+------------------------------ */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ------------------------------
+   Animations
+------------------------------ */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 2s infinite;
+}
+
+/* conflict fixed  */
