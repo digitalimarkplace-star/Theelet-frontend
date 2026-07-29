@@ -21,10 +21,16 @@ const links = [
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  // At the very top the announcement bar is visible, so the nav sits just
+  // below it; once you scroll the bar hides and the nav rises to the top.
+  const [announcementVisible, setAnnouncementVisible] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 80);
+      setAnnouncementVisible(window.scrollY <= 8);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -39,7 +45,8 @@ export function Nav() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-40 transition-all duration-500",
+        "fixed inset-x-0 z-40 transition-all duration-500",
+        announcementVisible ? "top-9" : "top-0",
         scrolled ? "bg-cream/95 shadow-[0_1px_0_0_rgba(0,0,0,0.06)] backdrop-blur" : "bg-transparent",
       )}
     >

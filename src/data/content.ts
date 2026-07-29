@@ -1,10 +1,9 @@
 // Single source of truth for all copy, pricing, and image slots.
 //
-// Every image slot currently points at ONE shared placeholder photo
-// (`/elet-placeholder.jpg`) so the UI looks complete. When real photography
-// arrives, swap each slot's `src` here — nothing else needs to change.
+// Real hotel photography lives in `public/images/web/` as web-optimized WebP.
+// To swap any photo, change that slot's `src` below — nothing else changes.
 
-const PLACEHOLDER = "/elet-placeholder.jpg";
+const IMG = "/images/web";
 
 export type ImageSlot = {
   slot: string;
@@ -49,13 +48,13 @@ export const properties: Property[] = [
     tier: "premium",
     cardImage: {
       slot: "card-signature",
-      alt: "elet signature clifton red-brick entrance and planted courtyard",
-      src: PLACEHOLDER,
+      alt: "elet signature clifton planted entrance walkway",
+      src: `${IMG}/entrance.webp`,
     },
     heroImage: {
       slot: "hero-signature-clifton",
       alt: "elet signature rooftop terrace at dusk overlooking clifton",
-      src: PLACEHOLDER,
+      src: `${IMG}/rooftop-dusk.webp`,
     },
   },
   {
@@ -73,13 +72,13 @@ export const properties: Property[] = [
     tier: "mid-range",
     cardImage: {
       slot: "card-business",
-      alt: "elet business shahrah-e-faisal facade at street level",
-      src: PLACEHOLDER,
+      alt: "elet business well-appointed room",
+      src: `${IMG}/room-classic.webp`,
     },
     heroImage: {
       slot: "hero-business-shahrahefaisal",
       alt: "elet business room interior with morning light",
-      src: PLACEHOLDER,
+      src: `${IMG}/room-bright.webp`,
     },
   },
   {
@@ -97,13 +96,13 @@ export const properties: Property[] = [
     tier: "value",
     cardImage: {
       slot: "card-express",
-      alt: "elet express dha apartment living area with kitchen",
-      src: PLACEHOLDER,
+      alt: "elet express dha apartment living area",
+      src: `${IMG}/living-area.webp`,
     },
     heroImage: {
       slot: "hero-express-dha",
       alt: "elet express dha apartment bedroom with warm interior",
-      src: PLACEHOLDER,
+      src: `${IMG}/room-warm.webp`,
     },
   },
 ];
@@ -112,22 +111,22 @@ export const trendingAreas: { name: string; blurb: string; image: ImageSlot }[] 
   {
     name: "clifton",
     blurb: "cafes, dolmen mall, sea view. karachi's evening address.",
-    image: { slot: "area-clifton", alt: "clifton seaside promenade at golden hour", src: PLACEHOLDER },
+    image: { slot: "area-clifton", alt: "clifton rooftop skyline view", src: `${IMG}/rooftop-day.webp` },
   },
   {
     name: "dha",
     blurb: "quiet streets, boutique retail, private neighbourhoods.",
-    image: { slot: "area-dha", alt: "leafy dha residential street", src: PLACEHOLDER },
+    image: { slot: "area-dha", alt: "leafy dha residential walkway", src: `${IMG}/entrance.webp` },
   },
   {
     name: "shahrah-e-faisal",
     blurb: "the city's business corridor. offices, hotels, hospitals.",
-    image: { slot: "area-shahrahefaisal", alt: "shahrah-e-faisal skyline at dusk", src: PLACEHOLDER },
+    image: { slot: "area-shahrahefaisal", alt: "shahrah-e-faisal skyline at dusk", src: `${IMG}/rooftop-dusk.webp` },
   },
   {
     name: "zamzama",
     blurb: "boulevard dining and small-label boutiques.",
-    image: { slot: "area-zamzama", alt: "zamzama boulevard shopfronts", src: PLACEHOLDER },
+    image: { slot: "area-zamzama", alt: "zamzama boulevard dining room", src: `${IMG}/dining.webp` },
   },
 ];
 
@@ -136,25 +135,25 @@ export const perks = [
     title: "best rate, book direct",
     blurb: "our lowest rates are always here. no third party markups.",
     cta: "book direct",
-    image: { slot: "perk-book-direct", alt: "elet reception desk detail", src: PLACEHOLDER },
+    image: { slot: "perk-book-direct", alt: "elet reception desk detail", src: `${IMG}/reception.webp` },
   },
   {
     title: "referral scheme",
     blurb: "give a friend 15% off. take 15% off your next stay.",
     cta: "refer a friend",
-    image: { slot: "perk-referral", alt: "guests at elet signature bar", src: PLACEHOLDER },
+    image: { slot: "perk-referral", alt: "guests lounge at the elet", src: `${IMG}/lounge.webp` },
   },
   {
     title: "loyalty perks",
     blurb: "recurring guests unlock room upgrades, late checkouts, and house pours.",
     cta: "join the list",
-    image: { slot: "perk-loyalty", alt: "warm-lit bedside detail", src: PLACEHOLDER },
+    image: { slot: "perk-loyalty", alt: "warm-lit bedside detail", src: `${IMG}/bedside.webp` },
   },
   {
     title: "corporate and long stay rates",
     blurb: "flexible rates for teams, projects, and stays over seven nights.",
     cta: "talk to us",
-    image: { slot: "perk-corporate", alt: "elet business meeting nook", src: PLACEHOLDER },
+    image: { slot: "perk-corporate", alt: "elet business meeting nook", src: `${IMG}/nook.webp` },
   },
 ];
 
@@ -185,7 +184,7 @@ export const aboutStory = {
   quote:
     "we started the elet because karachi deserved somewhere that felt like the city itself. warm, considered, unhurried. not a corporate lobby, not a beige business hotel. a place with a point of view.",
   attribution: "the elet, karachi",
-  image: { slot: "about-story", alt: "elet interior detail, brass and warm wood", src: PLACEHOLDER } as ImageSlot,
+  image: { slot: "about-story", alt: "elet interior detail, brass and warm wood", src: `${IMG}/about.webp` } as ImageSlot,
 };
 
 export const whatsapp = {

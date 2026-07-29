@@ -268,6 +268,14 @@ export function BookingBar() {
     }
   };
 
+  // "find a room": open WhatsApp for further queries AND email the enquiry.
+  // window.open is called synchronously in the click handler so the browser
+  // treats it as a user gesture (otherwise the popup gets blocked).
+  const submitEnquiry = () => {
+    window.open(buildWhatsAppUrl(state), "_blank", "noopener,noreferrer");
+    void sendEnquiry();
+  };
+
   return (
     <section
       id="booking"
@@ -314,7 +322,7 @@ export function BookingBar() {
               disabled={submitting}
               onClick={() => {
                 setOpenDesktopPanel(null);
-                sendEnquiry();
+                submitEnquiry();
               }}
               className="inline-flex items-center justify-center gap-2 bg-gold px-8 text-xs font-medium uppercase tracking-[0.24em] text-ink transition-colors hover:bg-gold-soft disabled:opacity-60"
             >
@@ -342,7 +350,7 @@ export function BookingBar() {
                 <button
                   type="button"
                   disabled={submitting}
-                  onClick={sendEnquiry}
+                  onClick={submitEnquiry}
                   className="mt-2 bg-gold px-6 py-3 text-center text-xs font-medium uppercase tracking-[0.24em] text-ink hover:bg-gold-soft disabled:opacity-60"
                 >
                   find a room
