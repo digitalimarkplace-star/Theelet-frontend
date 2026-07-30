@@ -161,7 +161,7 @@ export const rateBars = [
   { label: "standard room", traditional: 18000, elet: 8500 },
   { label: "deluxe room", traditional: 22500, elet: 10500 },
   { label: "executive room", traditional: 27000, elet: 12000 },
-  { label: "whole private floor", traditional: 31833, elet: 10333 },
+  { label: "whole private floor", traditional: 75000, elet: 40000 },
 ];
 
 export const rateSummary = {
