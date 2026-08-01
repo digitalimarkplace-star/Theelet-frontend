@@ -8,6 +8,10 @@ type Props = {
   ratio?: string; // e.g. "aspect-[4/5]", "aspect-video", "aspect-square"
   rounded?: string;
   overlayTint?: boolean;
+  // Above-the-fold images (hero) should load eagerly for LCP; everything else
+  // lazy-loads so it isn't fetched until scrolled near — this keeps a single
+  // page view from requesting all ~16 images at once.
+  eager?: boolean;
 };
 
 export function ImageSlot({
@@ -16,6 +20,7 @@ export function ImageSlot({
   ratio = "aspect-[4/5]",
   rounded = "rounded-none",
   overlayTint = false,
+  eager = false,
 }: Props) {
   if (slot.src) {
     return (
@@ -23,6 +28,9 @@ export function ImageSlot({
       <img
         src={slot.src}
         alt={slot.alt}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        fetchPriority={eager ? "high" : "auto"}
         className={cn("h-full w-full object-cover", ratio, rounded, className)}
       />
     );

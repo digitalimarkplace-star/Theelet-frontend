@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { CalendarIcon, ChevronDown, Minus, Plus, Search } from "lucide-react";
 import type { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
-import { properties } from "@/data/content";
+import { properties, bookingWhatsapp } from "@/data/content";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -51,6 +51,17 @@ function useBookingState() {
 
 type BookingState = ReturnType<typeof useBookingState>;
 
+// Pick the branch WhatsApp number from the selected location. Handles every
+// format the location can take: the desktop panel ("clifton"), the mobile
+// dropdown ("elet business, Shahrah-e-Faisal"), and "all locations".
+function phoneForLocation(location: string): string {
+  const l = location.toLowerCase();
+  if (l.includes("shahrah") || l.includes("faisal")) return bookingWhatsapp["shahrah-e-faisal"];
+  if (l.includes("clifton")) return bookingWhatsapp.clifton;
+  if (l.includes("dha")) return bookingWhatsapp.dha;
+  return bookingWhatsapp.default;
+}
+
 function buildWhatsAppUrl(state: BookingState) {
   const lines = [
     "hi the elet, i'd like to check availability.",
@@ -63,7 +74,7 @@ function buildWhatsAppUrl(state: BookingState) {
     `children: ${state.children}`,
   ];
   if (state.promo.trim()) lines.push(`promo code: ${state.promo.trim()}`);
-  const base = "https://wa.me/923371129644";
+  const base = `https://wa.me/${phoneForLocation(state.location)}`;
   return `${base}?text=${encodeURIComponent(lines.join("\n"))}`;
 }
 

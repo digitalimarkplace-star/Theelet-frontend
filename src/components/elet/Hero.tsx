@@ -41,7 +41,7 @@ export function Hero() {
           )}
           aria-hidden={i !== index}
         >
-          <ImageSlot slot={s.image} ratio="aspect-auto" className="h-full w-full" />
+          <ImageSlot slot={s.image} ratio="aspect-auto" className="h-full w-full" eager={i === 0} />
           <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/20 to-ink/70" />
         </div>
       ))}

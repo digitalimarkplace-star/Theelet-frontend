@@ -192,6 +192,16 @@ export const whatsapp = {
   href: "https://wa.me/923371129644",
 };
 
+// Per-location WhatsApp booking numbers. When a guest picks a location in the
+// booking bar, the "find a room" redirect uses that branch's line; "all
+// locations" / anything else falls back to the main number.
+export const bookingWhatsapp = {
+  default: "923371129644",
+  clifton: "923352548913",
+  "shahrah-e-faisal": "923172939452",
+  dha: "923371129644",
+} as const;
+
 export const footerLinks = {
   links: [
     { label: "manage booking", href: "#", comingSoon: true },
