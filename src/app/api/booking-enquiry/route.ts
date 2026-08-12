@@ -5,6 +5,10 @@ import nodemailer from "nodemailer";
 export const runtime = "nodejs";
 
 type EnquiryBody = {
+  name?: string;
+  email?: string;
+  whatsapp?: string;
+  consent?: boolean;
   property?: string;
   checkIn?: string;
   checkOut?: string;
@@ -73,6 +77,11 @@ export async function POST(request: Request) {
   const lines = [
     "new booking enquiry from the elet website",
     "",
+    `name: ${body.name?.trim() || "-"}`,
+    `email: ${body.email?.trim() || "-"}`,
+    `whatsapp: ${body.whatsapp?.trim() || "-"}`,
+    `marketing consent: ${body.consent ? "yes" : "no"}`,
+    "",
     `property: ${body.property || "all locations"}`,
     `check in: ${body.checkIn || "flexible"}`,
     `check out: ${body.checkOut || "flexible"}`,
@@ -107,8 +116,9 @@ export async function POST(request: Request) {
       to: config.to,
       ...(cc.length ? { cc } : {}),
       ...(bcc.length ? { bcc } : {}),
-      replyTo: config.from,
-      subject: `booking enquiry — ${body.property || "all locations"}`,
+      // reply goes straight to the guest when they provided an email
+      replyTo: body.email?.trim() || config.from,
+      subject: `booking enquiry — ${body.name?.trim() || "guest"} — ${body.property || "all locations"}`,
       text,
     });
 
