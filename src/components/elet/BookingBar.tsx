@@ -8,6 +8,7 @@ import { CalendarIcon, ChevronDown, Minus, Plus, Search } from "lucide-react";
 import type { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
 import { properties, bookingWhatsapp } from "@/data/content";
+import { verifyPromo } from "@/data/promos";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
@@ -75,7 +76,8 @@ function buildWhatsAppUrl(state: BookingState) {
     `adults: ${state.adults}`,
     `children: ${state.children}`,
   ];
-  if (state.promo.trim()) lines.push(`promo code: ${state.promo.trim()}`);
+  const promo = verifyPromo(state.promo);
+  if (promo) lines.push(`promo code: ${promo.code} (✓ verified)`);
   const base = `https://wa.me/${phoneForLocation(state.location)}`;
   return `${base}?text=${encodeURIComponent(lines.join("\n"))}`;
 }
@@ -132,6 +134,11 @@ function submitBooking(state: BookingState) {
   });
   if (!parsed.success) {
     toast.error(parsed.error.issues[0]?.message ?? "please check your details");
+    return;
+  }
+  // Promo is optional, but if one is typed it must be valid.
+  if (state.promo.trim() && !verifyPromo(state.promo)) {
+    toast.error("that promo code isn't valid");
     return;
   }
   if (state.submitting) return;
@@ -215,6 +222,18 @@ function ConsentCheck({ state }: { state: BookingState }) {
       />
       <span>i&apos;d like to receive updates and offers from the elet via email and whatsapp.</span>
     </label>
+  );
+}
+
+// Live feedback under the promo input: silent when empty, confirms when valid,
+// nudges when the typed code isn't recognised.
+function PromoHint({ value }: { value: string }) {
+  if (!value.trim()) return null;
+  const promo = verifyPromo(value);
+  return (
+    <span className={cn("mt-1 text-xs", promo ? "text-teal" : "text-ink-soft/70")}>
+      {promo ? `✓ ${promo.code} applied — ${promo.discount}` : "code not recognised"}
+    </span>
   );
 }
 
@@ -342,6 +361,7 @@ function BookingFields({ state, compact = false }: { state: BookingState; compac
           placeholder="optional"
           className="w-full bg-transparent text-base text-ink placeholder:text-ink-soft/50 focus:outline-none"
         />
+        <PromoHint value={state.promo} />
       </Field>
     </>
   );
@@ -539,11 +559,14 @@ function BookingFieldsDesktop({
   }
   return wrap(
     "promo code",
-    <input
-      value={state.promo}
-      onChange={(e) => state.setPromo(e.target.value)}
-      placeholder="optional"
-      className="w-full bg-transparent text-base text-ink placeholder:text-ink-soft/50 focus:outline-none"
-    />,
+    <>
+      <input
+        value={state.promo}
+        onChange={(e) => state.setPromo(e.target.value)}
+        placeholder="optional"
+        className="w-full bg-transparent text-base text-ink placeholder:text-ink-soft/50 focus:outline-none"
+      />
+      <PromoHint value={state.promo} />
+    </>,
   );
 }

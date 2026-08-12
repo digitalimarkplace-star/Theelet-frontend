@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { verifyPromo } from "@/data/promos";
 
 // nodemailer needs the Node.js runtime (raw TCP sockets), not the Edge runtime.
 export const runtime = "nodejs";
@@ -74,6 +75,15 @@ export async function POST(request: Request) {
   const adults = body.adults ?? 0;
   const children = body.children ?? 0;
 
+  // Re-verify the promo server-side. Optional: no code is fine, but a typed
+  // code that doesn't match our list is rejected so forged requests can't
+  // fabricate a "verified" discount.
+  const promoRaw = body.promo?.trim();
+  const promo = verifyPromo(promoRaw);
+  if (promoRaw && !promo) {
+    return NextResponse.json({ ok: false, error: "invalid promo code" }, { status: 400 });
+  }
+
   const lines = [
     "new booking enquiry from the elet website",
     "",
@@ -89,7 +99,7 @@ export async function POST(request: Request) {
     `adults: ${adults}`,
     `children: ${children}`,
   ];
-  if (body.promo?.trim()) lines.push(`promo code: ${body.promo.trim()}`);
+  if (promo) lines.push(`promo code: ${promo.code} (✓ verified — ${promo.discount})`);
   if (body.whatsappUrl) lines.push("", `open in whatsapp: ${body.whatsappUrl}`);
   const text = lines.join("\n");
 
