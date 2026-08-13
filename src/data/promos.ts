@@ -13,6 +13,7 @@ export const promoCodes: Promo[] = [
   { code: "ELET10", label: "welcome offer", discount: "10% off" },
   { code: "WELCOME15", label: "first stay", discount: "15% off" },
   { code: "KARACHI20", label: "launch offer", discount: "20% off" },
+  { code: "ELET14", label: "launch offer", discount: "14% off" },
 ];
 
 // Returns the matched promo, or null when the input is empty/unknown.
