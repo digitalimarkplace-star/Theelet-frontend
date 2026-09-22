@@ -12,17 +12,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const links: { label: string; href: string; comingSoon?: boolean }[] = [
-  { label: "why book with us", href: "/our-story" },
+const links = [
+  { label: "why book with us", href: "#perks" },
   { label: "offers", href: "#elet-express" },
-  { label: "journal", href: "/journal" },
-  { label: "faqs", href: "/faqs" },
+  { label: "journal", href: "#", comingSoon: true },
+  { label: "faqs", href: "#", comingSoon: true },
 ];
 
-// `solid` renders the nav in its opaque state at the top of the page — used on
-// inner/static pages that have no hero behind the header. On those pages the
-// in-page hash links point back to the homepage's sections (e.g. "/#perks").
-export function Nav({ solid = false }: { solid?: boolean }) {
+export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   // At the very top the announcement bar is visible, so the nav sits just
   // below it; once you scroll the bar hides and the nav rises to the top.
@@ -39,18 +36,8 @@ export function Nav({ solid = false }: { solid?: boolean }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const opaque = scrolled || solid;
-  // In-page anchors (#…) must route back to the homepage from inner pages;
-  // absolute routes (/our-story, /journal, …) are used as-is.
-  const resolveHref = (href: string) =>
-    href.startsWith("#") ? (solid ? `/${href}` : href) : href;
-
   const scrollToProperty = (id: string) => {
     const target = id === "express" ? "elet-express" : `property-${id}`;
-    if (solid) {
-      window.location.assign(`/#${target}`);
-      return;
-    }
     document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
     setMobileOpen(false);
   };
@@ -59,17 +46,12 @@ export function Nav({ solid = false }: { solid?: boolean }) {
     <header
       className={cn(
         "fixed inset-x-0 z-40 transition-all duration-500",
-        solid ? "top-0" : announcementVisible ? "top-9" : "top-0",
-        opaque
-          ? "bg-cream/95 shadow-[0_1px_0_0_rgba(0,0,0,0.06)] backdrop-blur"
-          : "bg-transparent",
+        announcementVisible ? "top-9" : "top-0",
+        scrolled ? "bg-cream/95 shadow-[0_1px_0_0_rgba(0,0,0,0.06)] backdrop-blur" : "bg-transparent",
       )}
     >
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-4 py-4 sm:px-8">
-        <a
-          href={solid ? "/" : "#top"}
-          className="inline-flex items-center gap-2.5 transition-all duration-500"
-        >
+        <a href="#top" className="inline-flex items-center gap-2.5 transition-all duration-500">
           <span className="block h-9 w-9 overflow-hidden" aria-hidden="true">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/elet-logo.svg" alt="" className="h-full w-full object-contain" />
@@ -77,7 +59,7 @@ export function Nav({ solid = false }: { solid?: boolean }) {
           <span
             className={cn(
               "font-display text-xl tracking-wide transition-colors",
-              opaque ? "text-ink" : "text-cream",
+              scrolled ? "text-ink" : "text-cream",
             )}
           >
             the elet
@@ -89,7 +71,7 @@ export function Nav({ solid = false }: { solid?: boolean }) {
             <DropdownMenuTrigger
               className={cn(
                 "inline-flex items-center gap-1 text-sm elet-editorial transition-colors outline-none",
-                opaque ? "text-ink hover:text-teal" : "text-cream hover:text-gold",
+                scrolled ? "text-ink hover:text-teal" : "text-cream hover:text-gold",
               )}
             >
               select location
@@ -112,11 +94,11 @@ export function Nav({ solid = false }: { solid?: boolean }) {
           {links.map((l) => (
             <a
               key={l.label}
-              href={l.comingSoon ? l.href : resolveHref(l.href)}
+              href={l.href}
               onClick={l.comingSoon ? comingSoonHandler(l.label) : undefined}
               className={cn(
                 "text-sm elet-editorial transition-colors",
-                opaque ? "text-ink hover:text-teal" : "text-cream hover:text-gold",
+                scrolled ? "text-ink hover:text-teal" : "text-cream hover:text-gold",
               )}
             >
               {l.label}
@@ -126,7 +108,7 @@ export function Nav({ solid = false }: { solid?: boolean }) {
 
         <div className="flex items-center gap-2">
           <a
-            href={resolveHref("#booking")}
+            href="#booking"
             className="hidden rounded-none bg-gold px-5 py-3 text-xs font-medium uppercase tracking-[0.22em] text-ink transition-colors hover:bg-gold-soft sm:inline-flex"
           >
             find a room
@@ -134,7 +116,7 @@ export function Nav({ solid = false }: { solid?: boolean }) {
           <button
             className={cn(
               "inline-flex h-10 w-10 items-center justify-center rounded-full lg:hidden",
-              opaque ? "text-ink" : "text-cream",
+              scrolled ? "text-ink" : "text-cream",
             )}
             onClick={() => setMobileOpen((v) => !v)}
             aria-label="menu"
@@ -164,7 +146,7 @@ export function Nav({ solid = false }: { solid?: boolean }) {
               {links.map((l) => (
                 <a
                   key={l.label}
-                  href={l.comingSoon ? l.href : resolveHref(l.href)}
+                  href={l.href}
                   onClick={(e) => {
                     if (l.comingSoon) {
                       comingSoonHandler(l.label)(e);
