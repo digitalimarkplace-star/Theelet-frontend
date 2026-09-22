@@ -4,9 +4,9 @@ import { Footer } from "@/components/elet/Footer";
 import { ManageBooking } from "@/components/elet/ManageBooking";
 
 export const metadata: Metadata = {
-  title: "Manage Your Booking | the elet",
+  title: "manage your booking — the elet karachi",
   description:
-    "Look up your elet karachi reservation, or message us on WhatsApp to change or cancel your stay.",
+    "look up your elet karachi reservation, or message us on whatsapp to change or cancel your stay.",
 };
 
 export default function ManageBookingPage() {

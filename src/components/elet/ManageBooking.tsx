@@ -14,11 +14,11 @@ const GOOD_TO_KNOW = [
 export function ManageBooking() {
   const [reference, setReference] = useState("");
   const [contact, setContact] = useState("");
-  const [searched, setSearched] = useState(false);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSearched(true);
+    const text = `Hi, I'd like help finding my elet booking.\nBooking reference: ${reference}\nEmail/WhatsApp: ${contact}`;
+    window.open(`${whatsapp.href}?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -35,12 +35,12 @@ export function ManageBooking() {
         </ScrollFadeIn>
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[1.3fr_1fr]">
-          <ScrollFadeIn>
-            <div className="bg-cream-warm p-8 sm:p-10">
+          <ScrollFadeIn className="lg:ml-[152px] lg:max-w-[540px]">
+            <div className="border border-ink/10 bg-cream-warm p-8 sm:p-10">
               <h2 className="font-display text-2xl">find your reservation</h2>
               <form onSubmit={submit} className="mt-6 flex flex-col gap-5">
                 <div className="flex flex-col gap-1.5">
-                  <label className="elet-eyebrow text-ink-soft" htmlFor="booking-ref">
+                  <label className="elet-eyebrow text-teal" htmlFor="booking-ref">
                     booking reference
                   </label>
                   <input
@@ -48,11 +48,12 @@ export function ManageBooking() {
                     value={reference}
                     onChange={(e) => setReference(e.target.value)}
                     placeholder="e.g. elt-4821"
+                    required
                     className="border border-ink/15 bg-cream px-4 py-3 text-base text-ink placeholder:text-ink-soft/50 focus:border-teal focus:outline-none"
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="elet-eyebrow text-ink-soft" htmlFor="booking-contact">
+                  <label className="elet-eyebrow text-teal" htmlFor="booking-contact">
                     email or whatsapp number
                   </label>
                   <input
@@ -60,6 +61,7 @@ export function ManageBooking() {
                     value={contact}
                     onChange={(e) => setContact(e.target.value)}
                     placeholder="the one you booked with"
+                    required
                     className="border border-ink/15 bg-cream px-4 py-3 text-base text-ink placeholder:text-ink-soft/50 focus:border-teal focus:outline-none"
                   />
                 </div>
@@ -70,13 +72,6 @@ export function ManageBooking() {
                   find booking
                 </button>
               </form>
-
-              {searched && (
-                <div className="mt-6 border border-ink/10 bg-cream p-5 text-sm text-ink-soft">
-                  we couldn&apos;t match that reference yet. our online lookup is still coming online, so the
-                  quickest route today is whatsapp — send us the reference and we&apos;ll pull up your stay.
-                </div>
-              )}
             </div>
           </ScrollFadeIn>
 
@@ -97,7 +92,7 @@ export function ManageBooking() {
               </a>
 
               <div className="mt-10 border-t border-ink/10 pt-8">
-                <div className="elet-eyebrow text-gold">good to know</div>
+                <div className="elet-eyebrow text-teal">good to know</div>
                 <ul className="mt-4 space-y-3 text-ink-soft">
                   {GOOD_TO_KNOW.map((item) => (
                     <li key={item}>{item}</li>
