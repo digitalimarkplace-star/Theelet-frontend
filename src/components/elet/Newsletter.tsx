@@ -5,21 +5,9 @@ import { toast } from "sonner";
 import { ScrollFadeIn } from "./ScrollFadeIn";
 import { comingSoonHandler } from "@/lib/coming-soon";
 
-const INTERESTS = [
-  { id: "signature", label: "elet signature: rooftop evenings, clifton" },
-  { id: "business", label: "elet business: stays on shahrah-e-faisal" },
-  { id: "express", label: "elet express: apartments, dha (new)" },
-  { id: "karachi", label: "i live in karachi: city guides + staycation offers" },
-];
-
 export function Newsletter() {
   const [first, setFirst] = useState("");
   const [email, setEmail] = useState("");
-  const [interests, setInterests] = useState<string[]>([]);
-
-  const toggleInterest = (id: string) => {
-    setInterests((prev) => (prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]));
-  };
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,7 +17,6 @@ export function Newsletter() {
     });
     setFirst("");
     setEmail("");
-    setInterests([]);
   };
 
   return (
@@ -41,68 +28,37 @@ export function Newsletter() {
           <p className="mt-4 text-ink-soft">
             offers, new openings, and the occasional karachi city guide. no spam, no filler.
           </p>
-          <form onSubmit={submit} className="mt-10 text-left">
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div className="flex flex-col gap-1">
-                <label className="elet-eyebrow text-ink-soft" htmlFor="first">
-                  first name
-                </label>
-                <input
-                  id="first"
-                  value={first}
-                  onChange={(e) => setFirst(e.target.value)}
-                  className="border-b border-ink/20 bg-transparent py-2 text-base text-ink focus:border-teal focus:outline-none"
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <label className="elet-eyebrow text-ink-soft" htmlFor="email">
-                  email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="border-b border-ink/20 bg-transparent py-2 text-base text-ink focus:border-teal focus:outline-none"
-                />
-              </div>
+          <form onSubmit={submit} className="mt-10 grid gap-3 text-left sm:grid-cols-[1fr_1.4fr_auto]">
+            <div className="flex flex-col gap-1">
+              <label className="elet-eyebrow text-ink-soft" htmlFor="first">
+                first name
+              </label>
+              <input
+                id="first"
+                value={first}
+                onChange={(e) => setFirst(e.target.value)}
+                className="border-b border-ink/20 bg-transparent py-2 text-base text-ink focus:border-teal focus:outline-none"
+              />
             </div>
-
-            <div className="mt-8">
-              <div className="elet-eyebrow text-ink-soft">what sounds like you?</div>
-              <p className="mt-1 text-xs text-ink-soft">pick any. helps us send less, better.</p>
-              <div className="mt-4 flex flex-wrap gap-3">
-                {INTERESTS.map((interest) => {
-                  const selected = interests.includes(interest.id);
-                  return (
-                    <button
-                      key={interest.id}
-                      type="button"
-                      aria-pressed={selected}
-                      onClick={() => toggleInterest(interest.id)}
-                      className={`rounded-full border px-5 py-2.5 text-sm transition-colors ${
-                        selected
-                          ? "border-gold bg-gold text-ink"
-                          : "border-ink/20 text-ink-soft hover:border-teal hover:text-ink"
-                      }`}
-                    >
-                      {selected && <span className="mr-1.5">✓</span>}
-                      {interest.label}
-                    </button>
-                  );
-                })}
-              </div>
+            <div className="flex flex-col gap-1">
+              <label className="elet-eyebrow text-ink-soft" htmlFor="email">
+                email
+              </label>
+              <input
+                id="email"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="border-b border-ink/20 bg-transparent py-2 text-base text-ink focus:border-teal focus:outline-none"
+              />
             </div>
-
-            <div className="mt-8 flex justify-end">
-              <button
-                type="submit"
-                className="bg-gold px-6 py-3 text-xs font-medium uppercase tracking-[0.22em] text-ink hover:bg-gold-soft"
-              >
-                sign me up
-              </button>
-            </div>
+            <button
+              type="submit"
+              className="self-end bg-gold px-6 py-3 text-xs font-medium uppercase tracking-[0.22em] text-ink hover:bg-gold-soft"
+            >
+              sign me up
+            </button>
           </form>
           <p className="mt-4 text-xs text-ink-soft">
             by signing up you agree to our{" "}
