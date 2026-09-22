@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import hotelImage from "@/public/assets/detail-page/download.jpeg";
+import hotelImage from "@public/assets/detail-page/download.jpeg";
 import Link from "next/link";
 export default function Page() {
   return (

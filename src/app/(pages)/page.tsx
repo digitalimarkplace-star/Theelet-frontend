@@ -10,10 +10,10 @@ import {
   gallery_3,
   gallery_4,
   gallery_5,
-} from "@/public/assets/home/indes";
+} from "@public/assets/home/indes";
 import { Card } from "../component/card";
 import Link from "next/link";
-import testimage from "@/public/assets/detail-page/download.jpeg";
+import testimage from "@public/assets/detail-page/download.jpeg";
 import ContactSection from "../component/contact";
 import NewLetter from "../component/newsLetter";
 

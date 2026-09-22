@@ -15,9 +15,9 @@ import {
   gallery9,
   gallery10,
   gallery11,
-} from "@/public/assets/gallery/indes";
+} from "@public/assets/gallery/indes";
 import type { StaticImageData } from "next/image";
-import GalleryGrid from "@/src/app/component/GalleryGrid";
+import GalleryGrid from "@/app/component/GalleryGrid";
 
 // ✅ SSR: Static metadata generated at build time
 export const metadata: Metadata = {

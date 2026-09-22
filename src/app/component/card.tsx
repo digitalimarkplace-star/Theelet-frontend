@@ -1,6 +1,6 @@
 import type React from "react";
 import Image, { StaticImageData } from "next/image";
-import image from "@/public/assets/detail-page/download.jpeg";
+import image from "@public/assets/detail-page/download.jpeg";
 import WhatsAppChat from "./whatappChat";
 import Link from "next/link";
 

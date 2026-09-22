@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
 import "./../globals.css";
-import logo from "@/public/assets/header/Logo-black.png";
-import bookNow from "@/public/assets/header/Book Now-black.png";
+import logo from "@public/assets/header/Logo-black.png";
+import bookNow from "@public/assets/header/Book Now-black.png";
 import Image from "next/image";
 import Footer from "../component/Footer";
 import Navigation from "../component/navigation";

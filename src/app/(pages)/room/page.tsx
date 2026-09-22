@@ -1,11 +1,11 @@
 import React from "react";
 import Image from "next/image";
-import Executive_Suite from "@/public/assets/rooms/Executive Suite.jpeg";
-import classic_room from "@/public/assets/rooms/classic_room.jpeg";
-import Executive from "@/public/assets/rooms/Executive.jpeg";
-import twin_bed_room from "@/public/assets/rooms/twin-bad-room.jpeg";
+import Executive_Suite from "@public/assets/rooms/Executive Suite.jpeg";
+import classic_room from "@public/assets/rooms/classic_room.jpeg";
+import Executive from "@public/assets/rooms/Executive.jpeg";
+import twin_bed_room from "@public/assets/rooms/twin-bad-room.jpeg";
 
-import { Card } from "@/src/app/component/card";
+import { Card } from "@/app/component/card";
 export default function RoomsPage() {
   const rooms = [
     {

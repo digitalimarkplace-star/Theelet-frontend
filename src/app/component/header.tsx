@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import bookNow from "@/public/assets/header/Book Now.png";
-import logo from "@/public/assets/header/Logo.png";
+import bookNow from "@public/assets/header/Book Now.png";
+import logo from "@public/assets/header/Logo.png";
 import Navigation from "./navigation";
 
 const Header = () => {
