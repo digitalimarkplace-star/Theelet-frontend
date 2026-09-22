@@ -19,14 +19,18 @@ const links = [
   { label: "faqs", href: "#", comingSoon: true },
 ];
 
-export function Nav() {
-  const [scrolled, setScrolled] = useState(false);
+export function Nav({ interior = false }: { interior?: boolean }) {
+  // Interior pages have no hero behind the nav and no announcement bar above
+  // it, so they skip the transparent/offset states and render solid from the
+  // start instead of reacting to scroll.
+  const [scrolled, setScrolled] = useState(interior);
   // At the very top the announcement bar is visible, so the nav sits just
   // below it; once you scroll the bar hides and the nav rises to the top.
-  const [announcementVisible, setAnnouncementVisible] = useState(true);
+  const [announcementVisible, setAnnouncementVisible] = useState(!interior);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
+    if (interior) return;
     const onScroll = () => {
       setScrolled(window.scrollY > 80);
       setAnnouncementVisible(window.scrollY <= 8);
@@ -34,7 +38,7 @@ export function Nav() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [interior]);
 
   const scrollToProperty = (id: string) => {
     const target = id === "express" ? "elet-express" : `property-${id}`;

@@ -204,7 +204,7 @@ export const bookingWhatsapp = {
 
 export const footerLinks = {
   links: [
-    { label: "manage booking", href: "#", comingSoon: true },
+    { label: "manage booking", href: "/manage-booking" },
     { label: "faqs", href: "#", comingSoon: true },
     { label: "contact", href: whatsapp.href },
     { label: "careers", href: "#", comingSoon: true },
