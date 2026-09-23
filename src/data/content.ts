@@ -204,13 +204,11 @@ export const bookingWhatsapp = {
 
 export const footerLinks = {
   links: [
-    { label: "our story", href: "/our-story" },
-    { label: "journal", href: "/journal" },
+    { label: "manage booking", href: "/manage-booking" },
     { label: "faqs", href: "/faqs" },
+    { label: "contact", href: whatsapp.href },
     { label: "careers", href: "/careers" },
     { label: "terms", href: "/terms" },
-    { label: "manage booking", href: "/manage-booking" },
-    { label: "contact", href: whatsapp.href },
   ] as { label: string; href: string; comingSoon?: boolean }[],
   social: [
     { label: "instagram", href: "https://www.instagram.com/eletofficial/" },
